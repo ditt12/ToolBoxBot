@@ -2,19 +2,17 @@ const TelegramBot = require('node-telegram-bot-api');
 const fs = require('fs');
 const path = require('path');
 
-// Mengimpor fitur dari folder fitur
 const cekurl = require('./fitur/cekurl');
 const spam = require('./fitur/spam');
 const motivasi = require('./fitur/motivasi');
 const joke = require('./fitur/joke');
-const fototolink = require('./fitur/fototolink'); // Mengimpor fotoToLink
+const fototolink = require('./fitur/fototolink'); 
 
 const settings = JSON.parse(fs.readFileSync(path.join(__dirname, 'settings.json')));
-const token = settings.token;  // Token bot
+const token = settings.token;  
 
 const bot = new TelegramBot(token, { polling: true });
 
-// Menu Utama
 const menu = `
 ┌─────────────────────────┐
 │   Ini adalah fitur menu 
@@ -23,7 +21,6 @@ const menu = `
 └─────────────────────────┘
 `;
 
-// Menu Tools
 const toolsMenu = `
 ┌─────────────────────────┐
 │ Pilihan Tools           
@@ -34,7 +31,6 @@ const toolsMenu = `
 └─────────────────────────┘
 `;
 
-// Menu Fun
 const funMenu = `
 ┌─────────────────────────┐
 │ Pilihan Fun             
@@ -42,39 +38,33 @@ const funMenu = `
 └─────────────────────────┘
 `;
 
-// Perintah /start
 bot.onText(/\/start/, (msg) => {
   const chatId = msg.chat.id;
   const botName = msg.bot.username;  // Mengambil nama bot dari Telegram
   bot.sendMessage(chatId, `Hai, saya adalah ${botName}, Ketik /menu untuk melihat menu yang ada di bot ini`);
 });
 
-// Perintah /menu
 bot.onText(/\/menu/, (msg) => {
   const chatId = msg.chat.id;
   bot.sendMessage(chatId, menu);
 });
 
-// Perintah /toolsmenu untuk menampilkan menu alat
 bot.onText(/\/toolsmenu/, (msg) => {
   const chatId = msg.chat.id;
   bot.sendMessage(chatId, toolsMenu);
 });
 
-// Perintah /funmenu untuk menampilkan menu fun
 bot.onText(/\/funmenu/, (msg) => {
   const chatId = msg.chat.id;
   bot.sendMessage(chatId, funMenu);
 });
 
-// Perintah /cekurl untuk mengecek keamanan URL
 bot.onText(/\/cekurl (.+)/, (msg, match) => {
   const chatId = msg.chat.id;
-  const url = match[1];  // Mendapatkan URL yang dimasukkan setelah /cekurl
+  const url = match[1];  
   cekurl.checkUrl(bot, chatId, url);
 });
 
-// Perintah /spam untuk melakukan spam pada URL
 bot.onText(/\/spam (.+)/, (msg, match) => {
   const chatId = msg.chat.id;
   const url = match[1];
