@@ -71,19 +71,17 @@ bot.onText(/\/spam (.+)/, (msg, match) => {
   spam.spamUrl(bot, chatId, url);
 });
 
-// Perintah /motivasi untuk mengirim kutipan motivasi
+
 bot.onText(/\/motivasi/, (msg) => {
   const chatId = msg.chat.id;
   motivasi.sendMotivasi(bot, chatId);
 });
 
-// Perintah /joke untuk mengirimkan lelucon acak
 bot.onText(/\/joke/, async (msg) => {
   const chatId = msg.chat.id;
   joke.sendJoke(bot, chatId);
 });
 
-// Perintah /fototolink untuk mengupload gambar dan mengembalikan URL gambar
 bot.on('photo', (msg) => {
   const chatId = msg.chat.id;
   const photo = msg.photo[msg.photo.length - 1];  // Mendapatkan foto ukuran terbesar
