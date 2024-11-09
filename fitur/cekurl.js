@@ -10,7 +10,6 @@ module.exports = (bot, chatId, url) => {
 
   const checkUrl = async () => {
     try {
-      
       const cleanUrl = xss(url); 
       if (cleanUrl !== url) {
         bot.sendMessage(chatId, `URL ini mungkin rentan terhadap serangan XSS: ${url}`);
